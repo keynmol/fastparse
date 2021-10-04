@@ -22,7 +22,7 @@ object fastparse extends Module{
 
       def moduleDeps = super.moduleDeps ++ Seq(fastparseJvmModule.this)
       def ivyDeps = Agg(
-        ivy"com.lihaoyi::fastparse:1.0.0",
+        ivy"org.scalameta::fastparse-v2:2.3.1",
         ivy"com.lihaoyi::ammonite-ops:1.1.2",
         ivy"org.scala-lang:scala-reflect:${scalaVersion()}",
       )
