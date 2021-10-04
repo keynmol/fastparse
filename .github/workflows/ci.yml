@@ -15,5 +15,5 @@ jobs:
       - uses: coursier/cache-action@v5
       - name: Publish
         run: |
-          ./mill -i -w -j 4 fastparse.__.test
+          ./mill -i -j 4 fastparse.__.test
 
