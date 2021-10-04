@@ -12,7 +12,6 @@ jobs:
       - uses: olafurpg/setup-scala@v13
         with:
           java-version: adopt@1.8
-      - uses: olafurpg/setup-gpg@v3
       - uses: coursier/cache-action@v5
       - name: Publish
         run: |
