@@ -7,7 +7,7 @@ import mill.eval.Result
 import mill.modules.Jvm.createJar
 
 val crossVersions = Seq("2.12.13", "2.13.4", "2.11.12")
-val crossJsVersions = Seq("2.12.13" -> "1.4.0", "2.13.4" -> "1.4.0")
+val crossJsVersions = Seq("2.12.13" -> "1.5.0", "2.13.4" -> "1.5.0")
 val crossNativeVersions = Seq("2.12.13" -> "0.4.0", "2.13.4" -> "0.4.0")
 
 object fastparse extends Module{
@@ -53,17 +53,11 @@ object fastparse extends Module{
 
 trait FastparseModule extends CommonCrossModule{
   def ivyDeps = Agg(
-    ivy"com.lihaoyi::sourcecode::0.2.3",
-    {
-      if (scalaVersion().startsWith("2.11")){
-        ivy"com.lihaoyi::geny::0.1.4"
-      } else {
-        ivy"com.lihaoyi::geny::0.6.5"
-      }
-    }
+      ivy"com.lihaoyi::geny::0.6.10"
   )
   def compileIvyDeps = Agg(
-    ivy"org.scala-lang:scala-reflect:${scalaVersion()}"
+    ivy"org.scala-lang:scala-reflect:${scalaVersion()}",
+    ivy"org.scala-lang:scala-compiler:${scalaVersion()}"
   )
   def generatedSources = T{
     val dir = T.ctx().dest
@@ -96,7 +90,11 @@ trait FastparseModule extends CommonCrossModule{
     """.stripMargin
     os.write(file, output, createFolders = true)
     Seq(PathRef(file))
-  }
+  }  
+
+  def sources = T.sources(
+    super.sources()
+      .++(CrossModuleBase.scalaVersionPaths(crossScalaVersion, s => millSourcePath / s"src-$s" )))
 }
 
 object scalaparse extends Module{
@@ -145,13 +143,13 @@ trait ExampleParseJsModule extends CommonCrossModule with ScalaJSModule{
 
 
 trait ExampleParseJvmModule extends CommonCrossModule{
-  def moduleDeps = Seq(fastparse.jvm())
+  def moduleDeps = Seq(fastparse.jvm(crossScalaVersion))
   def platformSegment = "jvm"
   object test extends Tests with CommonTestModule{
     def platformSegment = "jvm"
     def ivyDeps = super.ivyDeps() ++ Agg(
       ivy"net.sourceforge.cssparser:cssparser:0.9.18",
-      ivy"org.scala-lang:scala-compiler:${scalaVersion()}"
+      // ivy"org.scala-lang:scala-compiler:${scalaVersion()}"
     )
   }
 }
@@ -269,16 +267,16 @@ object perftests extends Module{
 }
 
 object demo extends ScalaJSModule{
-  def scalaJSVersion = "1.4.0"
+  def scalaJSVersion = "1.5.0"
   def scalaVersion = "2.13.1"
   def moduleDeps = Seq(
-    scalaparse.js("2.13.4", "1.4.0"),
-    cssparse.js("2.13.4", "1.4.0"),
-    pythonparse.js("2.13.4", "1.4.0"),
-    fastparse.js("2.13.4", "1.4.0").test,
+    scalaparse.js("2.13.4", "1.5.0"),
+    cssparse.js("2.13.4", "1.5.0"),
+    pythonparse.js("2.13.4", "1.5.0"),
+    fastparse.js("2.13.4", "1.5.0").test,
   )
   def ivyDeps = Agg(
-    ivy"org.scala-js::scalajs-dom::0.9.7",
+    ivy"org.scala-js::scalajs-dom::1.2.0",
     ivy"com.lihaoyi::scalatags::0.9.3"
   )
 }
