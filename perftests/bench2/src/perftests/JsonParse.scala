@@ -1,4 +1,5 @@
 package perftests
+import scala.meta.internal.fastparse
 import utest._
 object JsonParse extends TestSuite {
   val crossValidationStream = getClass.getResourceAsStream("/fastparse/test.json")

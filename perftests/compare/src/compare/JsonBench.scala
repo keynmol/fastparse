@@ -1,4 +1,6 @@
 package compare
+
+import scala.meta.internal.fastparse
 import utest._
 
 object JsonBench extends TestSuite{

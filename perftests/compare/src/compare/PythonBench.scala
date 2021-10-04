@@ -1,5 +1,6 @@
 package compare
 
+import scala.meta.internal.fastparse
 import org.python.core.{CompileMode, CompilerFlags}
 import utest._
 

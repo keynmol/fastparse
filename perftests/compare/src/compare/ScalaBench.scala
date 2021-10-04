@@ -1,5 +1,6 @@
 package compare
 
+import scala.meta.internal.fastparse
 import scalaparse.ScalacParser
 import utest._
 

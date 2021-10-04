@@ -1,5 +1,6 @@
 package perftests.string
 
+// import scala.meta.internal.fastparse
 import perftests.Utils
 import utest._
 import fastparse.all._

@@ -1,4 +1,5 @@
 package perftests.string
+import scala.meta.internal.fastparse
 import fastparse._, NoWhitespace._
 import perftests.Utils
 import utest._

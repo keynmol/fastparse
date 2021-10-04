@@ -1,5 +1,6 @@
 package perftests
 
+import scala.meta.internal.fastparse
 import fastparse.JsonnetWhitespace._
 import fastparse._
 import Expr.Member.Visibility

@@ -1,5 +1,6 @@
 package perftests
 
+import scala.meta.internal.fastparse
 import fastparse._
 
 import scala.collection.mutable
