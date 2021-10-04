@@ -1,6 +1,7 @@
 package scalaparse.unit
 
 import scalaparse.{TestUtil, Scala}
+import scala.meta.internal.fastparse
 import fastparse._
 import utest._
 import TestUtil._

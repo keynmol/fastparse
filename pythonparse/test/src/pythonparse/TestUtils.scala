@@ -1,5 +1,7 @@
 package pythonparse
 
+import scala.meta.internal.fastparse
+
 import utest._
 
 /**
