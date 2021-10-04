@@ -52,9 +52,6 @@ object fastparse extends Module{
 }
 
 trait FastparseModule extends CommonCrossModule{
-  def ivyDeps = Agg(
-      ivy"com.lihaoyi::geny::0.6.10"
-  )
   def compileIvyDeps = Agg(
     ivy"org.scala-lang:scala-reflect:${scalaVersion()}",
     ivy"org.scala-lang:scala-compiler:${scalaVersion()}"

@@ -3,6 +3,7 @@ package scala.meta.internal.fastparse
 import java.io.InputStreamReader
 
 import scala.meta.internal.fastparse.internal.{UberBuffer, Util}
+import scala.meta.internal.geny
 
 
 /**
