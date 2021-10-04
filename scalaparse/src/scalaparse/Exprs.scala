@@ -1,4 +1,5 @@
 package scalaparse
+import scala.meta.internal.fastparse
 
 import fastparse._, ScalaWhitespace._
 trait Exprs extends Core with Types with Xml{

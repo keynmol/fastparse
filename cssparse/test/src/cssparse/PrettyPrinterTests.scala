@@ -1,5 +1,6 @@
 package cssparse
 
+import scala.meta.internal.fastparse
 import fastparse.parse
 import utest._
 

@@ -1,6 +1,7 @@
 package test.fastparse
 
 import utest._
+import scala.meta.internal.fastparse
 import fastparse._
 import fastparse.internal.Logger
 /**

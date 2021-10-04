@@ -1,4 +1,5 @@
-package fastparse
+import scala.meta.internal.fastparse
+import fastparse._
 import utest._
 object UtilTests extends TestSuite {
   val tests = Tests{

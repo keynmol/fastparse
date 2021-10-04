@@ -1,5 +1,6 @@
 package test.fastparse
 
+import scala.meta.internal.fastparse
 object Main {
   def main(args: Array[String]): Unit = {
     import fastparse._, NoWhitespace._

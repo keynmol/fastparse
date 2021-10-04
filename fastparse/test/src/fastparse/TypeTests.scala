@@ -1,6 +1,7 @@
 
 package test.fastparse
 
+import scala.meta.internal.fastparse
 import fastparse.Implicits
 
 /**

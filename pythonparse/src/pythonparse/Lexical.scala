@@ -1,4 +1,5 @@
 package pythonparse
+import scala.meta.internal.fastparse
 import fastparse.NoWhitespace._
 /**
  * Python's lexical grammar; how basic tokens get parsed. This stuff is

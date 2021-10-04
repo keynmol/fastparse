@@ -1,5 +1,6 @@
 package scalaparse.syntax
 
+import scala.meta.internal.fastparse
 import fastparse._
 
 import NoWhitespace._

@@ -1,7 +1,7 @@
 package scalaparse
 
 import syntax.Basic
-import fastparse._
+import scala.meta.internal.fastparse
 import fastparse._
 
 import scala.language.implicitConversions

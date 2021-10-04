@@ -3,6 +3,7 @@ package demo
 import cssparse.PrettyPrinter
 import org.scalajs.dom
 import org.scalajs.dom.{Event, UIEvent, html}
+import scala.meta.internal.fastparse
 import fastparse._
 import fastparse.internal.Util
 
@@ -10,7 +11,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
 import scala.scalajs.js.typedarray.{ArrayBuffer, Uint8Array}
 
-@JSExportTopLevel("demo.DemoMain")
+@JSExportTopLevel("DemoMain")
 object DemoMain {
   @JSExport
   def scalaparser(container: html.Div) = {

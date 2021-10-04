@@ -1,5 +1,7 @@
 package cssparse
 
+import scala.meta.internal.fastparse
+
 import fastparse._
 
 // According to https://www.w3.org/TR/css-syntax-3/

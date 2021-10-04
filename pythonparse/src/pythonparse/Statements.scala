@@ -1,5 +1,6 @@
 package pythonparse
 
+import scala.meta.internal.fastparse
 import fastparse._
 import Expressions.{whitespace => _, _}
 import Lexical.kw

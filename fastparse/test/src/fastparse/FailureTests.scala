@@ -1,4 +1,5 @@
 package test.fastparse
+import scala.meta.internal.fastparse
 import fastparse._
 
 import utest._

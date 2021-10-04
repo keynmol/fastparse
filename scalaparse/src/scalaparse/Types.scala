@@ -1,6 +1,6 @@
 package scalaparse
 
-import fastparse._
+import scala.meta.internal.fastparse
 import fastparse._, ScalaWhitespace._
 trait Types extends Core{
   def TypeExpr[_: P]: P[Unit]

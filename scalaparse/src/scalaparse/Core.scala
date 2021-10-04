@@ -1,6 +1,7 @@
 package scalaparse
 
 import syntax.{Basic, Key}
+import scala.meta.internal.fastparse
 
 import scala.language.implicitConversions
 import syntax.Identifiers

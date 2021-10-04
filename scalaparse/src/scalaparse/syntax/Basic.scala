@@ -1,7 +1,7 @@
 package scalaparse.syntax
 
 
-import fastparse._
+import scala.meta.internal.fastparse
 import fastparse._
 import fastparse.NoWhitespace._
 import CharPredicates._
