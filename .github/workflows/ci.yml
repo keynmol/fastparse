@@ -15,4 +15,8 @@ jobs:
       - uses: olafurpg/setup-gpg@v3
       - uses: coursier/cache-action@v5
       - name: Publish
-        run: ./mill -i __.test
+        run: |
+          ./mill -i -j 4 __.compile
+          ./mill -i -j 4 __.test.compile
+          ./mill -i -j 4 __.test
+

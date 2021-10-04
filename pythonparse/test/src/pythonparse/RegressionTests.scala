@@ -1,5 +1,6 @@
 package pythonparse
 import utest._
+import scala.meta.internal.fastparse
 import fastparse._
 
 object RegressionTests extends TestSuite{

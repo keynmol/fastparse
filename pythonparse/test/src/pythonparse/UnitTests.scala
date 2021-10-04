@@ -1,7 +1,9 @@
 package pythonparse
 
 import utest._
+import scala.meta.internal.fastparse
 import fastparse._
+
 /**
  * Tests to cover most basic syntactic constructs. It's likely there are
  * interactions between the constructs that will cause problems, but these
