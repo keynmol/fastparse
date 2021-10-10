@@ -1,4 +1,4 @@
-package sourcecode
+package scala.meta.internal.sourcecode
 
 object Compat{
   type Context = scala.reflect.macros.blackbox.Context

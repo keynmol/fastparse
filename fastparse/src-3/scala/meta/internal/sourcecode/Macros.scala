@@ -1,15 +1,18 @@
-package sourcecode
+package scala.meta.internal.sourcecode
 
 import scala.language.implicitConversions
 import scala.quoted._
 
+import scala.meta.internal.sourcecode.{Name as SourceName}
+
+
 trait NameMacros {
-  inline implicit def generate: Name =
+  inline implicit def generate: SourceName =
     ${ Macros.nameImpl }
 }
 
 trait NameMachineMacros {
-  inline implicit def generate: Name.Machine =
+  inline implicit def generate: SourceName.Machine =
     ${ Macros.nameMachineImpl }
 }
 
@@ -97,11 +100,11 @@ object Macros {
   def nonMacroOwner(using Quotes)(owner: quotes.reflect.Symbol): quotes.reflect.Symbol =
     findOwner(owner, owner0 => { owner0.flags.is(quotes.reflect.Flags.Macro) && Util.getName(owner0) == "macro"})
 
-  def nameImpl(using Quotes): Expr[Name] = {
+  def nameImpl(using Quotes): Expr[SourceName] = {
     import quotes.reflect._
     val owner = actualOwner(Symbol.spliceOwner)
     val simpleName = Util.getName(owner)
-    '{Name(${Expr(simpleName)})}
+    '{SourceName(${Expr(simpleName)})}
   }
 
   private def adjustName(s: String): String =
@@ -111,11 +114,11 @@ object Macros {
     else
       s
 
-  def nameMachineImpl(using Quotes): Expr[Name.Machine] = {
+  def nameMachineImpl(using Quotes): Expr[SourceName.Machine] = {
     import quotes.reflect._
     val owner = nonMacroOwner(Symbol.spliceOwner)
     val simpleName = adjustName(Util.getName(owner))
-    '{Name.Machine(${Expr(simpleName)})}
+    '{SourceName.Machine(${Expr(simpleName)})}
   }
 
   def fullNameImpl(using Quotes): Expr[FullName] = {

@@ -1,13 +1,14 @@
-package sourcecode
+package scala.meta.internal.sourcecode
 
 import language.experimental.macros
+import scala.meta.internal.sourcecode.{Name => SourceName}
 
 trait NameMacros {
-  implicit def generate: Name = macro Macros.nameImpl
+  implicit def generate: SourceName = macro Macros.nameImpl
 }
 
 trait NameMachineMacros {
-  implicit def generate: Name.Machine = macro Macros.nameMachineImpl
+  implicit def generate: SourceName.Machine = macro Macros.nameMachineImpl
 }
 
 trait FullNameMacros {
@@ -19,15 +20,15 @@ trait FullNameMachineMacros {
 }
 
 trait FileMacros {
-  implicit def generate: sourcecode.File = macro Macros.fileImpl
+  implicit def generate: File = macro Macros.fileImpl
 }
 
 trait FileNameMacros {
-  implicit def generate: sourcecode.FileName = macro Macros.fileNameImpl
+  implicit def generate: FileName = macro Macros.fileNameImpl
 }
 
 trait LineMacros {
-  implicit def generate: sourcecode.Line = macro Macros.lineImpl
+  implicit def generate: Line = macro Macros.lineImpl
 }
 
 trait EnclosingMacros {
@@ -61,19 +62,19 @@ object Util{
 
 object Macros {
 
-  def nameImpl(c: Compat.Context): c.Expr[Name] = {
+  def nameImpl(c: Compat.Context): c.Expr[SourceName] = {
     import c.universe._
     var owner = Compat.enclosingOwner(c)
     while(Util.isSynthetic(c)(owner)) owner = owner.owner
     val simpleName = Util.getName(c)(owner)
-    c.Expr[sourcecode.Name](q"""${c.prefix}($simpleName)""")
+    c.Expr[SourceName](q"""${c.prefix}($simpleName)""")
   }
 
-  def nameMachineImpl(c: Compat.Context): c.Expr[Name.Machine] = {
+  def nameMachineImpl(c: Compat.Context): c.Expr[SourceName.Machine] = {
     import c.universe._
     val owner = Compat.enclosingOwner(c)
     val simpleName = Util.getName(c)(owner)
-    c.Expr[Name.Machine](q"""${c.prefix}($simpleName)""")
+    c.Expr[SourceName.Machine](q"""${c.prefix}($simpleName)""")
   }
 
   def fullNameImpl(c: Compat.Context): c.Expr[FullName] = {
@@ -84,7 +85,7 @@ object Macros {
         .split("\\.", -1)
         .filterNot(Util.isSyntheticName)
         .mkString(".")
-    c.Expr[sourcecode.FullName](q"""${c.prefix}($fullName)""")
+    c.Expr[FullName](q"""${c.prefix}($fullName)""")
   }
 
   def fullNameMachineImpl(c: Compat.Context): c.Expr[FullName.Machine] = {
@@ -94,22 +95,22 @@ object Macros {
     c.Expr[FullName.Machine](q"""${c.prefix}($fullName)""")
   }
 
-  def fileImpl(c: Compat.Context): c.Expr[sourcecode.File] = {
+  def fileImpl(c: Compat.Context): c.Expr[File] = {
     import c.universe._
     val file = c.enclosingPosition.source.path
-    c.Expr[sourcecode.File](q"""${c.prefix}($file)""")
+    c.Expr[File](q"""${c.prefix}($file)""")
   }
 
-  def fileNameImpl(c: Compat.Context): c.Expr[sourcecode.FileName] = {
+  def fileNameImpl(c: Compat.Context): c.Expr[FileName] = {
     import c.universe._
     val fileName = c.enclosingPosition.source.path.split('/').last
-    c.Expr[sourcecode.FileName](q"""${c.prefix}($fileName)""")
+    c.Expr[FileName](q"""${c.prefix}($fileName)""")
   }
 
-  def lineImpl(c: Compat.Context): c.Expr[sourcecode.Line] = {
+  def lineImpl(c: Compat.Context): c.Expr[Line] = {
     import c.universe._
     val line = c.enclosingPosition.line
-    c.Expr[sourcecode.Line](q"""${c.prefix}($line)""")
+    c.Expr[Line](q"""${c.prefix}($line)""")
   }
 
   def enclosingImpl(c: Compat.Context): c.Expr[Enclosing] = enclosing[Enclosing](c)(
@@ -124,13 +125,13 @@ object Macros {
   def argsImpl(c: Compat.Context): c.Expr[Args] = {
     import c.universe._
     val param = Compat.enclosingParamList(c)
-    val texts = param.map(_.map(p => c.Expr[Text[_]](q"""sourcecode.Text($p, ${p.name.toString})""")))
+    val texts = param.map(_.map(p => c.Expr[Text[_]](q"""Text($p, ${p.name.toString})""")))
     val textSeqs = texts.map(s => c.Expr(q"""Seq(..$s)"""))
     c.Expr[Args](q"""Seq(..$textSeqs)""")
   }
 
 
-  def text[T: c.WeakTypeTag](c: Compat.Context)(v: c.Expr[T]): c.Expr[sourcecode.Text[T]] = {
+  def text[T: c.WeakTypeTag](c: Compat.Context)(v: c.Expr[T]): c.Expr[Text[T]] = {
     import c.universe._
     val fileContent = new String(v.tree.pos.source.content)
     val start = v.tree.collect {
@@ -145,7 +146,7 @@ object Macros {
     val end = parser.in.lastOffset
     val txt = fileContent.slice(start, start + end)
     val tree = q"""${c.prefix}(${v.tree}, $txt)"""
-    c.Expr[sourcecode.Text[T]](tree)
+    c.Expr[Text[T]](tree)
   }
   sealed trait Chunk
   object Chunk{

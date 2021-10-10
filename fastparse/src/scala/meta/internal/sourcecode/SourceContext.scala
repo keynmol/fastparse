@@ -1,5 +1,4 @@
-package sourcecode
-
+package scala.meta.internal.sourcecode
 
 abstract class SourceValue[T]{
   def value: T

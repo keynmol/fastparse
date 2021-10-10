@@ -5,6 +5,7 @@ import scala.meta.internal.fastparse
 
 import scala.annotation.tailrec
 import scala.reflect.macros.blackbox.Context
+import scala.meta.internal.sourcecode.{Name => SourceName}
 
 /**
   * Fastparse relies heavily on macro-based inlining to provide good
@@ -37,7 +38,7 @@ object MacroImpls {
   }
   def pMacro[T: c.WeakTypeTag](c: Context)
                               (t: c.Expr[ParsingRun[T]])
-                              (name: c.Expr[sourcecode.Name],
+                              (name: c.Expr[SourceName],
                                ctx: c.Expr[ParsingRun[_]]): c.Expr[ParsingRun[T]] = {
 
     import c.universe._
