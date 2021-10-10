@@ -13,7 +13,7 @@ jobs:
         with:
           java-version: adopt@1.8
       - uses: coursier/cache-action@v5
-      - name: Publish
+      - name: Run tests
         run: |
           ./mill -i -j 4 fastparse.__.test
 
